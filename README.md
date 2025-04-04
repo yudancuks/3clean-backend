@@ -27,7 +27,7 @@ Installation
 
     bash
     
-    git clone https://github.com/Samchully3002/3clean-backend
+    git clone https://github.com/yudancuks/3clean-backend
 
 Create a .env file in the root directory of your project based on the example below. Make sure to configure the required environment variables.
 

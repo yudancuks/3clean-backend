@@ -2,7 +2,7 @@ const redis = require('redis');
 
 const client = redis.createClient({
   host: process.env.REDIS_HOST,
-  port: process.env.REDIS_PORT || 6379   // Default to 6379 if not set
+  port: process.env.REDIS_PORT || 6379  
 });
 
 client.on('error', (err) => console.error('Redis Client Error', err));
