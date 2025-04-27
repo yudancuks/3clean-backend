@@ -41,7 +41,7 @@ bash
 
     docker-compose up --build
 
-    The Express.js server will be running on http://localhost:3000.
+    The Express.js server will be running on http://https://3cleaningsydney.com/:3000.
 
 Features
 

@@ -23,8 +23,8 @@ app.use('/uploads', express.static('uploads'));
 // Middleware JSON
 app.use(express.json());
 
-// Enable CORS for requests from localhost:5000
-app.use(cors({ origin: 'http://localhost:9000' }));
+// Enable CORS for requests from https://3cleaningsydney.com/:5000
+app.use(cors({ origin: 'ht:9000' }));
 
 // Middleware form-urlencoded
 app.use(express.urlencoded({ extended: true }));
