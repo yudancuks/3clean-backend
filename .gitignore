@@ -10,5 +10,7 @@ logs/
 
 uploads
 
+src/invoices
+
 # Docker
 docker-compose.override.yml

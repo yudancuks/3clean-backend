@@ -72,7 +72,7 @@ const seedAdmins = async () => {
       { fullName: 'Admin 3Clean', emailAddress: "3cleanadmin@mail.com", password: "12345678" },
     ];
 
-    await Admin.insertMany(admins);
+    await Admin.create(admins);
     console.log('Admins seeded successfully');
   } catch (err) {
     console.error('Error seeding Admins:', err);
