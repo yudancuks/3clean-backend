@@ -9,7 +9,7 @@ services:
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-      - MONGO_URI=mongodb://mongodb:27017/db_3clean
+      - MONGO_URI=mongodb://mongo:27017/db_3clean
   redis:
     image: "redis:latest"
     ports:
