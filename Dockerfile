@@ -1,18 +1,20 @@
-# Use Node.js base image
+# Gunakan image Node.js resmi
 FROM node:20
 
-# Create app directory
+# Set working directory
 WORKDIR /usr/src/app
 
-# Install app dependencies
+# Copy package.json dan package-lock.json dulu (untuk caching layer install)
 COPY package*.json ./
+
+# Install dependencies
 RUN npm install
 
-# Copy the rest of the application code
+# Salin seluruh kode ke dalam image
 COPY . .
 
 # Expose port
 EXPOSE 3000
 
-# Start the application
-CMD ["npm","run","dev"]
+# Default command: gunakan npm run dev untuk dev, tapi pastikan ini memang benar
+CMD ["npm", "run", "dev"]

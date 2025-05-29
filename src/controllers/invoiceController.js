@@ -205,12 +205,20 @@ exports.getInvoice = async (req, res) => {
         // res.status(200).json({ message: 'Invoice generated successfully', invoicePath });
 
          // Check if the invoice file exists
-      if (!fs.existsSync(order.invoicePath)) {
-        return res.status(404).json({ message: 'Invoice file not found' });
+      fs.access(invoicePath, fs.constants.F_OK, (err) => {
+    if (err) {
+      console.error('File not accessible yet:', err);
+      return res.status(404).json({ message: 'Invoice file not accessible yet' });
+    }
+
+    res.download(invoicePath, `invoice-${orderId}.pdf`, (err) => {
+      if (err) {
+        console.error('Download failed:', err);
+        res.status(500).json({ message: 'Download failed' });
       }
-  
-      res.download(order.invoicePath, `invoice-${orderId}.pdf`);
-      });
+    });
+  });
+});
   
     } catch (error) {
       console.error('Error generating invoice:', error);
