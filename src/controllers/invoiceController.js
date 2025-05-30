@@ -274,7 +274,7 @@ exports.getInvoice = async (req, res) => {
       .text(order.orderDetails.customer.address, 400, customerInformationTop + 45)
       .moveDown();
   
-    generateHr(doc, 262);
+    generateHr(doc, 300);
   }
 
 

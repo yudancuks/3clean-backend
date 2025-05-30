@@ -9,6 +9,7 @@ const addOnRoute = require('./routes/addOnRoute.js');
 const orderRoute = require('./routes/orderRoute.js');
 const invoiceRoute = require('./routes/invoiceRoute.js');
 const cleanerRoute = require('./routes/procleanRoute.js');
+const dashboardRoute = require('./routes/dashboardRoute.js');
 
 require('dotenv').config();
 const path = require('path');
@@ -44,6 +45,7 @@ app.use('/api/addOns', addOnRoute);
 app.use('/api/orders', orderRoute);
 app.use('/api/invoice', invoiceRoute);
 app.use('/api', cleanerRoute);
+app.use('/api/datadashboard', dashboardRoute);
 app.use('/api', authRoutes); // Generate token mockup
 
 

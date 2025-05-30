@@ -126,3 +126,44 @@ exports.deleteOrder = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+exports.updateStatusOrder = async (req, res) => {
+  try {
+    const order_id = req.params.id; // ambil dari URL param
+    const {status} = req.body;
+
+    if (!order_id || !status) {
+      return res.status(400).json({ message: 'order_id and status are required' });
+    }
+
+    // Validasi status yang diperbolehkan
+    const allowedStatuses = ['pending', 'on-progress', 'succeed'];
+    if (!allowedStatuses.includes(status)) {
+      return res.status(400).json({ message: 'Invalid status value' });
+    }
+
+    // Cari order berdasarkan ID
+    const order = await Order.findById(order_id);
+
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+
+    // Update status
+    order.status = status;
+
+    await order.save();
+
+    return res.status(200).json({
+      message: 'Order status updated successfully',
+      order: {
+        id: order._id,
+        status: order.status
+      }
+    });
+  } catch (error) {
+    console.error('Error updating order status:', error);
+    return res.status(500).json({ message: 'Server error' });
+  }
+};
+

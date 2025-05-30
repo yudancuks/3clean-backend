@@ -16,6 +16,11 @@ const orderSchema = new Schema({
   scheduleTime: { 
     type: String
   },
+  status: {
+    type: String,
+    enum: ['pending', 'on-progress', 'succeed'],
+    default: 'pending'
+  },
   orderDetails: {
     customer: {
       firstname: { type: String, required: true },

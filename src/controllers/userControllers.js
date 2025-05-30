@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Order = require('../models/order');
 const { getCache, setCache, clearCache } = require('../utils/redisCache'); // Add clearCache function
 
 // Create a new user
@@ -101,3 +102,35 @@ exports.deleteUserById = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
+// Get all customer
+exports.getCustomer = async (req, res) => {
+  try {
+        // 1. Ambil semua orderDetails dengan customer di-populate (ambil email & nama)
+    const orders = await Order.find({}, 'orderDetails')
+      .populate('orderDetails.customer', 'email name')
+      .lean();
+
+    // 2. Gabungkan semua orderDetails dari semua order menjadi array tunggal
+    const allOrderDetails = orders.flatMap(order => order.orderDetails);
+
+    // 3. Filter supaya hanya satu orderDetails per customer.email
+    const uniqueByEmail = [];
+    const seenEmails = new Set();
+
+    for (const od of allOrderDetails) {
+      const email = od.customer?.email;  // pastikan customer dan email ada
+      if (email && !seenEmails.has(email)) {
+        seenEmails.add(email);
+        uniqueByEmail.push(od);
+      }
+    }
+
+    res.status(200).json(uniqueByEmail);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
