@@ -14,3 +14,5 @@ src/invoices
 
 # Docker
 docker-compose.override.yml
+docker-compose.yaml
+Dockerfile

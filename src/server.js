@@ -25,7 +25,11 @@ app.use('/uploads', express.static('uploads'));
 app.use(express.json());
 
 // Enable CORS for requests from https://3cleaningsydney.com/:5000
-app.use(cors({ origin: '*' }));
+// app.use(cors({ origin: '*' }));
+app.use(cors({
+  origin: 'https://3cleaningsydney.com/',  // 
+  optionsSuccessStatus: 200
+}));
 
 // Middleware form-urlencoded
 app.use(express.urlencoded({ extended: true }));
