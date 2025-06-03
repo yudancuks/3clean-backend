@@ -87,7 +87,13 @@ exports.updateById = async (req, res) => {
 // Delete User By Identity Number
 exports.deleteUserById = async (req, res) => {
   const { id } = req.params;
+
   try {
+    const totalUsers = await User.countDocuments();
+    if (totalUsers <= 1) {
+      return res.status(400).json({ message: 'Cannot delete the last remaining user' });
+    }
+
     const user = await User.findByIdAndDelete(id);
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
@@ -102,6 +108,7 @@ exports.deleteUserById = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 
 // Get all customer

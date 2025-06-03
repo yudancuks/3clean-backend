@@ -91,6 +91,12 @@ exports.updateById = async (req, res) => {
 exports.deleteUserById = async (req, res) => {
   const { id } = req.params;
   try {
+    // Cek total user
+    const totalUsers = await User.countDocuments();
+    if (totalUsers <= 1) {
+      return res.status(400).json({ message: 'Cannot delete the last remaining cleaner' });
+    }
+
     const user = await User.findByIdAndDelete(id);
     if (!user) {
       return res.status(404).json({ message: 'Cleaner not found' });
@@ -105,3 +111,4 @@ exports.deleteUserById = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+

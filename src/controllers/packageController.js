@@ -102,6 +102,12 @@ exports.deletePackageById = async (req, res) => {
   const { id } = req.params;
 
   try {
+    // Cek total package
+    const totalPackages = await Package.countDocuments();
+    if (totalPackages <= 1) {
+      return res.status(400).json({ message: 'Cannot delete the last remaining package' });
+    }
+
     const deletedPackage = await Package.findByIdAndDelete(id);
     if (!deletedPackage) {
       return res.status(404).json({ message: 'Package not found' });
@@ -112,3 +118,4 @@ exports.deletePackageById = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+

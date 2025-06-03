@@ -129,6 +129,12 @@ exports.deleteDetailPackage = async (req, res) => {
   const { id } = req.params;
 
   try {
+    // Cek total detail package
+    const totalDetails = await DetailPackage.countDocuments();
+    if (totalDetails <= 1) {
+      return res.status(400).json({ message: 'Cannot delete the last remaining detail package' });
+    }
+
     const detailPackage = await DetailPackage.findByIdAndDelete(id);
     if (!detailPackage) {
       return res.status(404).json({ message: 'Detail Package not found' });
@@ -142,3 +148,4 @@ exports.deleteDetailPackage = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+

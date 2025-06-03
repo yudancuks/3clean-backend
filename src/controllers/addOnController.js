@@ -68,6 +68,12 @@ exports.updateAddOn = async (req, res) => {
 // Delete an AddOn by ID
 exports.deleteAddOn = async (req, res) => {
   try {
+    // Cek total AddOn
+    const totalAddOns = await AddOn.countDocuments();
+    if (totalAddOns <= 1) {
+      return res.status(400).json({ message: 'Cannot delete the last remaining AddOn' });
+    }
+
     const deletedAddOn = await AddOn.findByIdAndDelete(req.params.id);
 
     if (!deletedAddOn) {
@@ -79,3 +85,4 @@ exports.deleteAddOn = async (req, res) => {
     res.status(500).json({ message: 'Failed to delete AddOn', error: err.message });
   }
 };
+
