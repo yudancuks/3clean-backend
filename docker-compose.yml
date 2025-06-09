@@ -27,7 +27,7 @@ services:
     ports:
       - "6379:6379"
     volumes:
-    - redis_data:/data
+    - redis-data:/data
     networks:
       - backend
     restart: unless-stopped
@@ -38,16 +38,19 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - 3clean-backend_mongo_data:/data/db
-      - mongo_config_data:/data/configdb
+      - mongo-data:/data/db
+      - mongo-config:/data/configdb
     networks:
       - backend
     restart: unless-stopped
 
 volumes:
-  3clean-backend_mongo_data:
-  mongo_config_data:
-  redis_data:
+  mongo-data:
+    name: 3clean-backend_mongo_data
+  mongo-config:
+    name: 3clean-backend_mongo_config_data
+  redis-data:
+    name: 3clean-backend_redis_data
 
 networks:
   backend:

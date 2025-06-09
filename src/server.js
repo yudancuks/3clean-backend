@@ -10,6 +10,7 @@ const orderRoute = require('./routes/orderRoute.js');
 const invoiceRoute = require('./routes/invoiceRoute.js');
 const cleanerRoute = require('./routes/procleanRoute.js');
 const dashboardRoute = require('./routes/dashboardRoute.js');
+const customerRoute = require('./routes/customerRoute.js');
 
 require('dotenv').config();
 const path = require('path');
@@ -24,10 +25,10 @@ app.use('/uploads', express.static('uploads'));
 // Middleware JSON
 app.use(express.json());
 
-// Enable CORS for requests from https://3cleaningsydney.com/:5000
-// app.use(cors({ origin: '*' }));
+
 app.use(cors({
-  origin: 'https://3cleaningsydney.com/',  // 
+  origin: 'https://3cleaningsydeny.com',  // 
+  credentials: true,
   optionsSuccessStatus: 200
 }));
 
@@ -49,6 +50,7 @@ app.use('/api/addOns', addOnRoute);
 app.use('/api/orders', orderRoute);
 app.use('/api/invoice', invoiceRoute);
 app.use('/api', cleanerRoute);
+app.use('/api', customerRoute);
 app.use('/api/datadashboard', dashboardRoute);
 app.use('/api', authRoutes); // Generate token mockup
 
